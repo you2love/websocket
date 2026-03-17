@@ -182,30 +182,40 @@ Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=</code></pre>
             <div class="card">
                 <h3>WebSocket 帧格式</h3>
                 <p>WebSocket 数据传输使用帧（Frame）作为基本单位，每个帧包含头部和负载两部分。</p>
-                
-                <div class="frame-structure">
-                    <div class="frame-byte">
-                        <span class="bit-group">FIN</span>
-                        <span class="bit-group">RSV1-3</span>
-                        <span class="bit-group">Opcode</span>
-                        <span class="bit-desc">字节 0</span>
-                    </div>
-                    <div class="frame-byte">
-                        <span class="bit-group">MASK</span>
-                        <span class="bit-group">Payload Length</span>
-                        <span class="bit-desc">字节 1</span>
-                    </div>
-                    <div class="frame-byte">
-                        <span class="bit-group extended">Extended Payload Length</span>
-                        <span class="bit-desc">字节 2-9 (可选)</span>
-                    </div>
-                    <div class="frame-byte">
-                        <span class="bit-group extended">Masking Key</span>
-                        <span class="bit-desc">字节 10-13 (可选)</span>
-                    </div>
-                    <div class="frame-byte">
-                        <span class="bit-group extended">Payload Data</span>
-                        <span class="bit-desc">应用数据</span>
+
+                <div class="diagram-container">
+                    <div class="mermaid">
+flowchart TD
+    subgraph Frame["WebSocket 帧"]
+        direction TB
+        subgraph Byte0["字节 0"]
+            B0_1["FIN<br/>1 bit"]
+            B0_2["RSV1<br/>1 bit"]
+            B0_3["RSV2<br/>1 bit"]
+            B0_4["RSV3<br/>1 bit"]
+            B0_5["Opcode<br/>4 bits"]
+        end
+        subgraph Byte1["字节 1"]
+            B1_1["MASK<br/>1 bit"]
+            B1_2["Payload Length<br/>7 bits"]
+        end
+        subgraph Extended["字节 2-9 (可选)"]
+            EPL["Extended Payload Length<br/>2 或 8 字节"]
+        end
+        subgraph MaskingKey["字节 10-13 (可选)"]
+            MK["Masking Key<br/>4 字节"]
+        end
+        subgraph Data["Payload Data"]
+            PD["应用数据"]
+        end
+    end
+
+    style Frame fill:#1e293b,stroke:#3b82f6,color:#fff
+    style Byte0 fill:#3b82f6,stroke:#60a5fa,color:#fff
+    style Byte1 fill:#3b82f6,stroke:#60a5fa,color:#fff
+    style Extended fill:#8b5cf6,stroke:#a78bfa,color:#fff
+    style MaskingKey fill:#10b981,stroke:#34d399,color:#fff
+    style Data fill:#f59e0b,stroke:#fbbf24,color:#fff
                     </div>
                 </div>
             </div>
