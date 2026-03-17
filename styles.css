@@ -578,3 +578,75 @@ li strong {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-dark);
 }
+
+/* 代码块折叠样式 */
+.code-block-wrapper {
+    margin: 15px 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.code-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--bg-code) 0%, #1e293b 100%);
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    user-select: none;
+    transition: background var(--transition-base);
+}
+
+.code-block-header:hover {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+.code-block-title {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.code-block-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 6px;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.code-block-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.code-block-toggle:active {
+    transform: scale(0.95);
+}
+
+.code-block-wrapper pre {
+    margin: 0;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    transition: all var(--transition-base);
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.code-block-wrapper.collapsed pre {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.code-block-wrapper.collapsed .code-block-toggle {
+    transform: rotate(-90deg);
+}

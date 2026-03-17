@@ -813,5 +813,54 @@ func main() {
             </div>
         </section>
     </main>
+
+    <script>
+        // 代码块折叠功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('pre code');
+
+            codeBlocks.forEach(function(codeBlock) {
+                const preElement = codeBlock.parentElement;
+                const language = codeBlock.className.match(/language-(\w+)/);
+                const langName = language ? language[1] : 'code';
+
+                // 创建折叠容器
+                const wrapper = document.createElement('div');
+                wrapper.className = 'code-block-wrapper';
+
+                // 创建折叠头部
+                const header = document.createElement('div');
+                header.className = 'code-block-header';
+                header.innerHTML = `
+                    <span class="code-block-title">${langName}</span>
+                    <button class="code-block-toggle" aria-label="折叠/展开代码">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M3 6l5 5 5-5H3z"/>
+                        </svg>
+                    </button>
+                `;
+
+                // 将 pre 元素包装在 wrapper 中
+                preElement.parentNode.insertBefore(wrapper, preElement);
+                wrapper.appendChild(header);
+                wrapper.appendChild(preElement);
+
+                // 折叠/展开功能
+                const toggleBtn = header.querySelector('.code-block-toggle');
+                let isCollapsed = false;
+
+                toggleBtn.addEventListener('click', function() {
+                    isCollapsed = !isCollapsed;
+                    if (isCollapsed) {
+                        wrapper.classList.add('collapsed');
+                        toggleBtn.style.transform = 'rotate(-90deg)';
+                    } else {
+                        wrapper.classList.remove('collapsed');
+                        toggleBtn.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
